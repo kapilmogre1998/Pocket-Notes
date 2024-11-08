@@ -1,8 +1,11 @@
+import BlankPreview from './BlankPreview'
 import './PocketNotesDescription.css'
 
 const PocketNotesDescription = () => {
   return (
-    <div className='pocketnotesdescr-container' >PocketNotesDescription</div>
+    <div className='pocketnotesdescr-container'>
+      <BlankPreview />
+    </div>
   )
 }
 
