@@ -1,0 +1,159 @@
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+  }
+  
+  .modal-overlay.show {
+    opacity: 1;
+    visibility: visible;
+  }
+  
+  .modal {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 80%;
+    max-height: 80%;
+    overflow: auto;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    position: relative;
+    animation: modalFadeIn 0.3s ease;
+  }
+  
+  .close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 1.5rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #333;
+  }
+  
+  @keyframes modalFadeIn {
+    from {
+      transform: translateY(-20px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  .modal-content{
+    padding: 20px;
+    font-size: 24px;
+    color: #000000;
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+  }
+
+  .modal-content > p:nth-child(1){
+    font-size: 26px;
+  }
+
+  .group-name{
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+  }
+  
+  .group-name input{
+    flex-grow: 1;
+    border-radius: 28px;
+    padding: 18px 24px;
+    border: 1px solid rgb(187, 184, 184);
+    font-size: 22px;
+    outline: none;
+  }
+
+  .group-name > .error{
+    animation: shaking 1.5s ease;
+    border: 1px solid red;
+  }
+
+  .group-name input::-webkit-input-placeholder {
+    font-size: 19px;
+}
+
+.choose-color-container{
+    display: flex;
+    gap: 1.75rem;
+    align-items: center;
+}
+
+.choose-color{
+    display: flex;
+    gap: 0.5rem;
+}
+.choose-color > p{
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.choose-color .active{
+    border: 2px solid black;
+}
+
+.create-btn{
+    font-size: 20px;
+    text-align: end;
+    display: flex;
+    flex-direction: row-reverse;
+    padding-top: 0.5rem;
+    cursor: pointer;
+}
+
+.create-btn>button{
+    background-color: #001F8B;
+    width: 180px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    border-radius: 16px;
+    font-size: 20px;
+    outline: none;
+    border: 0px;
+    cursor: pointer;
+    will-change: transform;
+    transition: transform 0.5s ease;
+    margin-right: 20px;
+}
+
+.create-btn>button:active{
+    transform: scale(0.9);
+}
+
+@keyframes shaking {
+    0% {
+        transform: translateX(-6px);
+    }
+    25% {
+        transform: translateX(6px);
+    }
+    50% {
+        transform: translateX(-2px);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+

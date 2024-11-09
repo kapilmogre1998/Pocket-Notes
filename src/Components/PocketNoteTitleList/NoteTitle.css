@@ -1,5 +1,28 @@
+.notes {
+    display: flex;
+    gap: 1rem;
+    font-weight: bold;
+    display: flex;
+    padding: 3% 20% 3% 14%;
+    align-items: center;
+    cursor: pointer;
+}
 
-.notes-title-list{
-    flex-grow: 1;
-    overflow: auto;
+.notes:nth-child(2) {
+    font-size: 18px;
+}
+
+.notes.active {
+    background-color: rgb(211, 209, 209);
+}
+
+.initials {
+    color: white;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
 }

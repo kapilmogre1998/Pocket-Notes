@@ -1,18 +1,50 @@
-
-
-.pocketnotestitlelist-container{
+.pocketnotestitlelist-container {
     flex-basis: 23%;
     display: flex;
     flex-direction: column;
+    position: relative;
 }
 
-.pocketnotestitlelist-container .title{
+.pocketnotestitlelist-container .title {
     font-size: 28px;
     padding: 48px 0px;
     text-align: center;
 }
 
-.notes-title-list{
-    flex-grow: 1;
+.notes-title-list {
     overflow: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.notes-title-list::-webkit-scrollbar {
+    width: 10px; 
+}
+
+.notes-title-list::-webkit-scrollbar-track {
+    background: #D9D9D9;
+    border-radius: 5px;
+}
+
+.notes-title-list::-webkit-scrollbar-thumb {
+    background: rgb(178, 169, 169);
+    border-radius: 5px;
+}
+
+.add-note{
+    position: absolute;
+    width: 52px;
+    height: 52px;
+    background-color: #16008B;
+    font-size: 34px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    color: white;
+    bottom: 20px;
+    right: 32px;
+    cursor: pointer;
 }
