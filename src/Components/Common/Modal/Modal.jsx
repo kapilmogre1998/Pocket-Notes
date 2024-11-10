@@ -31,7 +31,7 @@ const Modal = ({ isOpen, onClose, setNotesList, notesList }) => {
                 const style = window.getComputedStyle(element);
                 
                 const note = { 
-                    title: inputRef?.current?.value, 
+                    title: inputRef?.current?.value?.trim(), 
                     initialsBgColor: style.getPropertyValue('background-color') || '',
                     description: [],
                     isActive: false,
@@ -56,7 +56,7 @@ const Modal = ({ isOpen, onClose, setNotesList, notesList }) => {
     const createNote = () => {
         if (groupName.length) {
             const note = { 
-                title: groupName, 
+                title: groupName.trim(), 
                 initialsBgColor: bgClrList.find(item => item.isActive)?.color || '', 
                 description: [],
                 isActive: false,
