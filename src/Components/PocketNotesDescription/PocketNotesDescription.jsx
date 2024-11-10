@@ -15,7 +15,7 @@ const PocketNotesDescription = ({ notesList, setNotesList }) => {
   const { title, initialsBgColor, description ,uniqueId } = activeTabDetails || {};
 
   const handleClickOnArrow = () => {
-    const addDescription = {...activeTabDetails, description: [...activeTabDetails.description, { user_notes: userNote, date: formatDate(new Date()), time: formatTime(new Date()) }]}
+    const addDescription = {...activeTabDetails, description: [...activeTabDetails.description, { user_notes: userNote.trim(), date: formatDate(new Date()), time: formatTime(new Date()) }]}
     const updatedList = notesList.map(elem => elem.uniqueId == uniqueId ? addDescription : elem)
     storeDataInLocalStorage(updatedList);
     setNotesList(updatedList);
@@ -53,7 +53,7 @@ const PocketNotesDescription = ({ notesList, setNotesList }) => {
           <div className='input-description' >
             <div>
               <div className='input-area' >
-                <textarea placeholder='Enter your text here...' id="note-descr" onChange={(e) => setUserNote(e.target.value)} ></textarea>
+                <textarea placeholder='Enter your text here...' id="note-descr" value={userNote} onChange={(e) => setUserNote(e.target.value)} ></textarea>
                 <div className='submit-descr-btn' >
                   <img src={ArrowIcon} alt="arrow-icon" onClick={handleClickOnArrow} />
                 </div>
