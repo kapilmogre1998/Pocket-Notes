@@ -1,19 +1,16 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import './Modal.css';
 import { BG_COLOR_LIST } from './Constant';
 import useOutSideClick from '../../../useHooks/useOutSideClick';
-
-type Note = {
-    title: string;
-    initialsBgColor: string;
-    description: string[]
-}
+import { generateRandomId } from '../../../Constant';
 
 const Modal = ({ isOpen, onClose, setNotesList, notesList }: { isOpen: boolean, onClose: () => void, setNotesList: () => {}, notesList: [] }) => {
     const [modalOpen, setModalOpen] = useState(isOpen);
     const [bgClrList, setBgClrList] = useState(BG_COLOR_LIST);
     const [groupName, setGroupName] = useState('');
     const [showError, setShowError] = useState(false);
+    const inputRef = useRef(null);
+    const selectorColorRef = useRef(null);
 
     const handleClose = () => {
         setModalOpen(false);
@@ -29,22 +26,49 @@ const Modal = ({ isOpen, onClose, setNotesList, notesList }: { isOpen: boolean, 
 
     const handleKeyDown = (event) => {
         if (event.key === 'Enter') {
-            console.log("🚀 ~ handleKeyDown ~ groupName:", groupName)
-            if (groupName.length) {
+            if (inputRef?.current?.value?.length) {
+                const element = selectorColorRef.current.querySelector('.active');
+                const style = window.getComputedStyle(element);
+                
+                const note = { 
+                    title: inputRef?.current?.value, 
+                    initialsBgColor: style.getPropertyValue('background-color') || '',
+                    description: [],
+                    isActive: false,
+                    uniqueId: generateRandomId()
+                }
 
+                setNotesList(prev => {
+                    const updatedList = [...prev, note];
+                    localStorage.setItem('notes-list', JSON.stringify(updatedList));
+                    return updatedList;
+                });
+
+                handleClose()
             } else {
                 setShowError(true);
             }
+        } else if(event.key === 'Escape'){
+            handleClose();
         }
     }
 
     const createNote = () => {
-        if(groupName.length){
-            const note = { title: groupName, initialsBgColor: bgClrList.find(item => item.isActive)?.color || '', description: '' }
+        if (groupName.length) {
+            const note = { 
+                title: groupName, 
+                initialsBgColor: bgClrList.find(item => item.isActive)?.color || '', 
+                description: [],
+                isActive: false,
+                uniqueId: generateRandomId()
+            }
+
             setNotesList(prev => {
-                localStorage.setItem('notes-list', JSON.stringify([...prev, note]));
-                return [...prev, note];
+                const updatedList = [...prev, note];
+                localStorage.setItem('notes-list', JSON.stringify(updatedList));
+                return updatedList;
             });
+
             handleClose()
         } else {
             setShowError(true)
@@ -58,11 +82,11 @@ const Modal = ({ isOpen, onClose, setNotesList, notesList }: { isOpen: boolean, 
         if (isOpen) {
             document.addEventListener('keydown', handleKeyDown);
         } else {
-            // document.removeEventListener('keydown', handleKeyDown);
+            document.removeEventListener('keydown', handleKeyDown);
         }
 
         return () => {
-            // document.removeEventListener('keydown', handleKeyDown);
+            document.removeEventListener('keydown', handleKeyDown);
         };
     }, [isOpen])
 
@@ -71,15 +95,15 @@ const Modal = ({ isOpen, onClose, setNotesList, notesList }: { isOpen: boolean, 
             {modalOpen && (
                 <div className={`modal-overlay ${isOpen ? 'show' : ''}`} onClick={handleClickOutside} >
                     <div ref={ref} className="modal">
-                        <div className='modal-content' style={{ width: '700px' }} >
+                        <div className='modal-content' >
                             <p>Create New group</p>
                             <div className='group-name'>
                                 <label htmlFor='groupname' >Group Name</label>
-                                <input className={`${showError ? 'error' : ''}`} onAnimationEnd={() => setShowError(false)} type="text" id="groupname" value={groupName} maxLength={30} placeholder='Enter group name' onChange={(event) => setGroupName(event.target.value)} />
+                                <input ref={inputRef} className={`${showError ? 'error' : ''}`} onAnimationEnd={() => setShowError(false)} type="text" id="groupname" value={groupName} maxLength={30} placeholder='Enter group name' onChange={(event) => setGroupName(event.target.value)} />
                             </div>
                             <div className='choose-color-container' >
                                 <span>Choose Colour</span>
-                                <div className='choose-color' >
+                                <div ref={selectorColorRef} className='choose-color'  >
                                     {
                                         bgClrList.map(({ color, isActive, id }) => <p onClick={() => handleClickOnColor(id)} key={id} className={`${isActive ? 'active' : ''}`} style={{ background: color }} ></p>)
                                     }

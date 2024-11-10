@@ -1,20 +1,20 @@
-import { useEffect } from 'react';
 import './NoteTitle.css'
 import { getInitials } from './Constant';
 
 type TitleProps = {
-  title: string
+  title: string;
+  initialsBgColor: string;
+  isActive?: boolean;
+  clickOnTitle: () => void;
+  uniqueId: number
 }
 
-const NoteTitle = ({ title, initialsBgColor }: TitleProps) => {
-
-  useEffect(() => {
-  },[])
+const NoteTitle = ({ title, initialsBgColor, isActive = false, clickOnTitle, uniqueId }: TitleProps) => {
 
   return (
-    <div className={`notes ${false ? 'active' : ''}`} >
+    <div className={`notes ${isActive ? 'active' : ''}`} onClick={() => clickOnTitle(uniqueId)} >
       <div style={{ backgroundColor: initialsBgColor }} className='initials' >{getInitials(title)}</div>
-      <div>{title}</div>
+      <div title={title} >{title}</div>
     </div>
   )
 }

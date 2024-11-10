@@ -7,7 +7,10 @@ function App() {
   const [notesList, setNotesList] = useState([]);
 
   useEffect(() => {
-    setNotesList(JSON.parse(localStorage.getItem(('notes-list'))) || []);
+    const notesList = localStorage.getItem(('notes-list'))
+    if(notesList){
+      setNotesList(JSON.parse(notesList) || []);
+    }
   },[])
 
   return (
