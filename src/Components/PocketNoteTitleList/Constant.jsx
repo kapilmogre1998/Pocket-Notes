@@ -1,5 +1,5 @@
 
-export function getInitials(name: string): string {
+export function getInitials(name) {
     let splitName = name.split(' ');
     let initials = '';
 

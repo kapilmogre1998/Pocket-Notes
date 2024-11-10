@@ -4,7 +4,7 @@ import { BG_COLOR_LIST } from './Constant';
 import useOutSideClick from '../../../useHooks/useOutSideClick';
 import { generateRandomId } from '../../../Constant';
 
-const Modal = ({ isOpen, onClose, setNotesList, notesList }: { isOpen: boolean, onClose: () => void, setNotesList: () => {}, notesList: [] }) => {
+const Modal = ({ isOpen, onClose, setNotesList, notesList }) => {
     const [modalOpen, setModalOpen] = useState(isOpen);
     const [bgClrList, setBgClrList] = useState(BG_COLOR_LIST);
     const [groupName, setGroupName] = useState('');
@@ -19,7 +19,7 @@ const Modal = ({ isOpen, onClose, setNotesList, notesList }: { isOpen: boolean, 
 
     const [ref, handleClickOutside] = useOutSideClick({ onClose: handleClose })
 
-    const handleClickOnColor = (id: number) => {
+    const handleClickOnColor = (id) => {
         const modifiedList = bgClrList.map((item) => ({ ...item, isActive: id == item.id ? true : false }))
         setBgClrList(modifiedList)
     }

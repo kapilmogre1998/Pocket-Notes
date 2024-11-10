@@ -11,7 +11,7 @@ const PocketNoteTitleList = ({ notesList,setNotesList }) => {
     setOpenModal(true)
   }
 
-  const handleClickOnTitle = (id: number) => {
+  const handleClickOnTitle = (id) => {
     const updatedList = notesList.map(item => ({ ...item, isActive: item.uniqueId == id ? true : false }))
     setNotesList([ ...updatedList ]);
   }
